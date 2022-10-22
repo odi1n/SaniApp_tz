@@ -7,6 +7,30 @@ optional = false
 python-versions = ">=3.7,<4.0"
 
 [[package]]
+name = "aiosqlite"
+version = "0.17.0"
+description = "asyncio bridge to the standard sqlite3 module"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+typing_extensions = ">=3.7.2"
+
+[[package]]
+name = "asyncpg"
+version = "0.26.0"
+description = "An asyncio PostgreSQL driver"
+category = "main"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.extras]
+dev = ["Cython (>=0.29.24,<0.30.0)", "pytest (>=6.0)", "Sphinx (>=4.1.2,<4.2.0)", "sphinxcontrib-asyncio (>=0.3.0,<0.4.0)", "sphinx-rtd-theme (>=0.5.2,<0.6.0)", "pycodestyle (>=2.7.0,<2.8.0)", "flake8 (>=3.9.2,<3.10.0)", "uvloop (>=0.15.3)"]
+docs = ["Sphinx (>=4.1.2,<4.2.0)", "sphinxcontrib-asyncio (>=0.3.0,<0.4.0)", "sphinx-rtd-theme (>=0.5.2,<0.6.0)"]
+test = ["pycodestyle (>=2.7.0,<2.8.0)", "flake8 (>=3.9.2,<3.10.0)", "uvloop (>=0.15.3)"]
+
+[[package]]
 name = "httptools"
 version = "0.5.0"
 description = "A collection of framework independent HTTP protocol utils."
@@ -18,12 +42,36 @@ python-versions = ">=3.5.0"
 test = ["Cython (>=0.29.24,<0.30.0)"]
 
 [[package]]
+name = "iso8601"
+version = "1.1.0"
+description = "Simple module to parse ISO 8601 dates"
+category = "main"
+optional = false
+python-versions = ">=3.6.2,<4.0"
+
+[[package]]
 name = "multidict"
 version = "6.0.2"
 description = "multidict implementation"
 category = "main"
 optional = false
 python-versions = ">=3.7"
+
+[[package]]
+name = "pypika-tortoise"
+version = "0.1.6"
+description = "Forked from pypika and streamline just for tortoise-orm"
+category = "main"
+optional = false
+python-versions = ">=3.7,<4.0"
+
+[[package]]
+name = "pytz"
+version = "2022.5"
+description = "World timezone definitions, modern and historical"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "sanic"
@@ -43,12 +91,12 @@ uvloop = {version = ">=0.5.3", markers = "sys_platform != \"win32\" and implemen
 websockets = ">=10.0"
 
 [package.extras]
-all = ["bandit", "beautifulsoup4", "black", "chardet (>=3.0.0,<4.0.0)", "coverage", "cryptography", "docutils", "enum-tools[sphinx]", "flake8", "isort (>=5.0.0)", "m2r2", "mistune (<2.0.0)", "mypy (>=0.901,<0.910)", "pygments", "pytest", "pytest-benchmark", "pytest-sanic", "sanic-testing (>=22.9.0b2)", "slotscheck (>=0.8.0,<1)", "sphinx (>=2.1.2)", "sphinx-rtd-theme (>=0.4.3)", "towncrier", "tox", "types-ujson", "uvicorn (<0.15.0)"]
-dev = ["bandit", "beautifulsoup4", "black", "chardet (>=3.0.0,<4.0.0)", "coverage", "cryptography", "docutils", "flake8", "isort (>=5.0.0)", "mypy (>=0.901,<0.910)", "pygments", "pytest", "pytest-benchmark", "pytest-sanic", "sanic-testing (>=22.9.0b2)", "slotscheck (>=0.8.0,<1)", "towncrier", "tox", "types-ujson", "uvicorn (<0.15.0)"]
-docs = ["docutils", "enum-tools[sphinx]", "m2r2", "mistune (<2.0.0)", "pygments", "sphinx (>=2.1.2)", "sphinx-rtd-theme (>=0.4.3)"]
+all = ["pytest-sanic", "tox", "mistune (<2.0.0)", "black", "pytest", "beautifulsoup4", "towncrier", "m2r2", "pygments", "pytest-benchmark", "flake8", "mypy (>=0.901,<0.910)", "bandit", "sanic-testing (>=22.9.0b2)", "enum-tools", "sphinx (>=2.1.2)", "sphinx-rtd-theme (>=0.4.3)", "uvicorn (<0.15.0)", "docutils", "chardet (>=3.0.0,<4.0.0)", "isort (>=5.0.0)", "coverage", "slotscheck (>=0.8.0,<1)", "cryptography", "types-ujson"]
+dev = ["sanic-testing (>=22.9.0b2)", "pytest", "coverage", "beautifulsoup4", "pytest-sanic", "pytest-benchmark", "chardet (>=3.0.0,<4.0.0)", "flake8", "black", "isort (>=5.0.0)", "bandit", "mypy (>=0.901,<0.910)", "docutils", "pygments", "uvicorn (<0.15.0)", "slotscheck (>=0.8.0,<1)", "cryptography", "tox", "towncrier", "types-ujson"]
+docs = ["sphinx (>=2.1.2)", "sphinx-rtd-theme (>=0.4.3)", "docutils", "pygments", "m2r2", "enum-tools", "mistune (<2.0.0)"]
 ext = ["sanic-ext"]
 http3 = ["aioquic"]
-test = ["bandit", "beautifulsoup4", "black", "chardet (>=3.0.0,<4.0.0)", "coverage", "docutils", "flake8", "isort (>=5.0.0)", "mypy (>=0.901,<0.910)", "pygments", "pytest", "pytest-benchmark", "pytest-sanic", "sanic-testing (>=22.9.0b2)", "slotscheck (>=0.8.0,<1)", "types-ujson", "uvicorn (<0.15.0)"]
+test = ["sanic-testing (>=22.9.0b2)", "pytest", "coverage", "beautifulsoup4", "pytest-sanic", "pytest-benchmark", "chardet (>=3.0.0,<4.0.0)", "flake8", "black", "isort (>=5.0.0)", "bandit", "mypy (>=0.901,<0.910)", "docutils", "pygments", "uvicorn (<0.15.0)", "slotscheck (>=0.8.0,<1)", "types-ujson"]
 
 [[package]]
 name = "sanic-routing"
@@ -57,6 +105,37 @@ description = "Core routing component for Sanic"
 category = "main"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "tortoise-orm"
+version = "0.19.2"
+description = "Easy async ORM for python, built with relations in mind"
+category = "main"
+optional = false
+python-versions = ">=3.7,<4.0"
+
+[package.dependencies]
+aiosqlite = ">=0.16.0,<0.18.0"
+asyncpg = {version = "*", optional = true, markers = "extra == \"asyncpg\""}
+iso8601 = ">=1.0.2,<2.0.0"
+pypika-tortoise = ">=0.1.6,<0.2.0"
+pytz = "*"
+
+[package.extras]
+aiomysql = ["aiomysql"]
+asyncmy = ["asyncmy (>=0.2.5,<0.3.0)"]
+asyncodbc = ["asyncodbc (>=0.1.1,<0.2.0)"]
+asyncpg = ["asyncpg"]
+accel = ["ciso8601", "orjson", "uvloop"]
+psycopg = ["psycopg"]
+
+[[package]]
+name = "typing-extensions"
+version = "4.4.0"
+description = "Backported and Experimental Type Hints for Python 3.7+"
+category = "main"
+optional = false
+python-versions = ">=3.7"
 
 [[package]]
 name = "ujson"
@@ -75,9 +154,9 @@ optional = false
 python-versions = ">=3.7"
 
 [package.extras]
-dev = ["Cython (>=0.29.32,<0.30.0)", "Sphinx (>=4.1.2,<4.2.0)", "aiohttp", "flake8 (>=3.9.2,<3.10.0)", "mypy (>=0.800)", "psutil", "pyOpenSSL (>=22.0.0,<22.1.0)", "pycodestyle (>=2.7.0,<2.8.0)", "pytest (>=3.6.0)", "sphinx-rtd-theme (>=0.5.2,<0.6.0)", "sphinxcontrib-asyncio (>=0.3.0,<0.4.0)"]
-docs = ["Sphinx (>=4.1.2,<4.2.0)", "sphinx-rtd-theme (>=0.5.2,<0.6.0)", "sphinxcontrib-asyncio (>=0.3.0,<0.4.0)"]
-test = ["Cython (>=0.29.32,<0.30.0)", "aiohttp", "flake8 (>=3.9.2,<3.10.0)", "mypy (>=0.800)", "psutil", "pyOpenSSL (>=22.0.0,<22.1.0)", "pycodestyle (>=2.7.0,<2.8.0)"]
+dev = ["Cython (>=0.29.32,<0.30.0)", "pytest (>=3.6.0)", "Sphinx (>=4.1.2,<4.2.0)", "sphinxcontrib-asyncio (>=0.3.0,<0.4.0)", "sphinx-rtd-theme (>=0.5.2,<0.6.0)", "flake8 (>=3.9.2,<3.10.0)", "psutil", "pycodestyle (>=2.7.0,<2.8.0)", "pyOpenSSL (>=22.0.0,<22.1.0)", "mypy (>=0.800)", "aiohttp"]
+docs = ["Sphinx (>=4.1.2,<4.2.0)", "sphinxcontrib-asyncio (>=0.3.0,<0.4.0)", "sphinx-rtd-theme (>=0.5.2,<0.6.0)"]
+test = ["flake8 (>=3.9.2,<3.10.0)", "psutil", "pycodestyle (>=2.7.0,<2.8.0)", "pyOpenSSL (>=22.0.0,<22.1.0)", "mypy (>=0.800)", "Cython (>=0.29.32,<0.30.0)", "aiohttp"]
 
 [[package]]
 name = "websockets"
@@ -90,12 +169,44 @@ python-versions = ">=3.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "80a0ad215314608f37e7829c99d0980d64186d547cfd4ea52237662b6527ab83"
+content-hash = "9036aaca99ce860375e7544ac7a1bed93f79c9669247f9cf7aa20dd107d4ed59"
 
 [metadata.files]
 aiofiles = [
     {file = "aiofiles-22.1.0-py3-none-any.whl", hash = "sha256:1142fa8e80dbae46bb6339573ad4c8c0841358f79c6eb50a493dceca14621bad"},
     {file = "aiofiles-22.1.0.tar.gz", hash = "sha256:9107f1ca0b2a5553987a94a3c9959fe5b491fdf731389aa5b7b1bd0733e32de6"},
+]
+aiosqlite = [
+    {file = "aiosqlite-0.17.0-py3-none-any.whl", hash = "sha256:6c49dc6d3405929b1d08eeccc72306d3677503cc5e5e43771efc1e00232e8231"},
+    {file = "aiosqlite-0.17.0.tar.gz", hash = "sha256:f0e6acc24bc4864149267ac82fb46dfb3be4455f99fe21df82609cc6e6baee51"},
+]
+asyncpg = [
+    {file = "asyncpg-0.26.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:2ed3880b3aec8bda90548218fe0914d251d641f798382eda39a17abfc4910af0"},
+    {file = "asyncpg-0.26.0-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e5bd99ee7a00e87df97b804f178f31086e88c8106aca9703b1d7be5078999e68"},
+    {file = "asyncpg-0.26.0-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:868a71704262834065ca7113d80b1f679609e2df77d837747e3d92150dd5a39b"},
+    {file = "asyncpg-0.26.0-cp310-cp310-win32.whl", hash = "sha256:838e4acd72da370ad07243898e886e93d3c0c9413f4444d600ba60a5cc206014"},
+    {file = "asyncpg-0.26.0-cp310-cp310-win_amd64.whl", hash = "sha256:a254d09a3a989cc1839ba2c34448b879cdd017b528a0cda142c92fbb6c13d957"},
+    {file = "asyncpg-0.26.0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:3ecbe8ed3af4c739addbfbd78f7752866cce2c4e9cc3f953556e4960349ae360"},
+    {file = "asyncpg-0.26.0-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f3ce7d8c0ab4639bbf872439eba86ef62dd030b245ad0e17c8c675d93d7a6b2d"},
+    {file = "asyncpg-0.26.0-cp36-cp36m-musllinux_1_1_x86_64.whl", hash = "sha256:7129bd809990fd119e8b2b9982e80be7712bb6041cd082be3e415e60e5e2e98f"},
+    {file = "asyncpg-0.26.0-cp36-cp36m-win32.whl", hash = "sha256:03f44926fa7ff7ccd59e98f05c7e227e9de15332a7da5bbcef3654bf468ee597"},
+    {file = "asyncpg-0.26.0-cp36-cp36m-win_amd64.whl", hash = "sha256:b1f7b173af649b85126429e11a628d01a5b75973d2a55d64dba19ad8f0e9f904"},
+    {file = "asyncpg-0.26.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:efe056fd22fc6ed5c1ab353b6510808409566daac4e6f105e2043797f17b8dad"},
+    {file = "asyncpg-0.26.0-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d96cf93e01df9fb03cef5f62346587805e6c0ca6f654c23b8d35315bdc69af59"},
+    {file = "asyncpg-0.26.0-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:235205b60d4d014921f7b1cdca0e19669a9a8978f7606b3eb8237ca95f8e716e"},
+    {file = "asyncpg-0.26.0-cp37-cp37m-win32.whl", hash = "sha256:0de408626cfc811ef04f372debfcdd5e4ab5aeb358f2ff14d1bdc246ed6272b5"},
+    {file = "asyncpg-0.26.0-cp37-cp37m-win_amd64.whl", hash = "sha256:f92d501bf213b16fabad4fbb0061398d2bceae30ddc228e7314c28dcc6641b79"},
+    {file = "asyncpg-0.26.0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:9acb22a7b6bcca0d80982dce3d67f267d43e960544fb5dd934fd3abe20c48014"},
+    {file = "asyncpg-0.26.0-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e550d8185f2c4725c1e8d3c555fe668b41bd092143012ddcc5343889e1c2a13d"},
+    {file = "asyncpg-0.26.0-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:050e339694f8c5d9aebcf326ca26f6622ef23963a6a3a4f97aeefc743954afd5"},
+    {file = "asyncpg-0.26.0-cp38-cp38-win32.whl", hash = "sha256:b0c3f39ebfac06848ba3f1e280cb1fada7cc1229538e3dad3146e8d1f9deb92a"},
+    {file = "asyncpg-0.26.0-cp38-cp38-win_amd64.whl", hash = "sha256:49fc7220334cc31d14866a0b77a575d6a5945c0fa3bb67f17304e8b838e2a02b"},
+    {file = "asyncpg-0.26.0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:d156e53b329e187e2dbfca8c28c999210045c45ef22a200b50de9b9e520c2694"},
+    {file = "asyncpg-0.26.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4b4051012ca75defa9a1dc6b78185ca58cdc3a247187eb76a6bcf55dfaa2fad4"},
+    {file = "asyncpg-0.26.0-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:6d60f15a0ac18c54a6ca6507c28599c06e2e87a0901e7b548f15243d71905b18"},
+    {file = "asyncpg-0.26.0-cp39-cp39-win32.whl", hash = "sha256:ede1a3a2c377fe12a3930f4b4dd5340e8b32929541d5db027a21816852723438"},
+    {file = "asyncpg-0.26.0-cp39-cp39-win_amd64.whl", hash = "sha256:8e1e79f0253cbd51fc43c4d0ce8804e46ee71f6c173fdc75606662ad18756b52"},
+    {file = "asyncpg-0.26.0.tar.gz", hash = "sha256:77e684a24fee17ba3e487ca982d0259ed17bae1af68006f4cf284b23ba20ea2c"},
 ]
 httptools = [
     {file = "httptools-0.5.0-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:8f470c79061599a126d74385623ff4744c4e0f4a0997a353a44923c0b561ee51"},
@@ -139,6 +250,10 @@ httptools = [
     {file = "httptools-0.5.0-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:8ffce9d81c825ac1deaa13bc9694c0562e2840a48ba21cfc9f3b4c922c16f372"},
     {file = "httptools-0.5.0-cp39-cp39-win_amd64.whl", hash = "sha256:1af91b3650ce518d226466f30bbba5b6376dbd3ddb1b2be8b0658c6799dd450b"},
     {file = "httptools-0.5.0.tar.gz", hash = "sha256:295874861c173f9101960bba332429bb77ed4dcd8cdf5cee9922eb00e4f6bc09"},
+]
+iso8601 = [
+    {file = "iso8601-1.1.0-py3-none-any.whl", hash = "sha256:8400e90141bf792bce2634df533dc57e3bee19ea120a87bebcd3da89a58ad73f"},
+    {file = "iso8601-1.1.0.tar.gz", hash = "sha256:32811e7b81deee2063ea6d2e94f8819a86d1f3811e49d23623a41fa832bef03f"},
 ]
 multidict = [
     {file = "multidict-6.0.2-cp310-cp310-macosx_10_9_universal2.whl", hash = "sha256:0b9e95a740109c6047602f4db4da9949e6c5945cefbad34a1299775ddc9a62e2"},
@@ -201,6 +316,14 @@ multidict = [
     {file = "multidict-6.0.2-cp39-cp39-win_amd64.whl", hash = "sha256:4bae31803d708f6f15fd98be6a6ac0b6958fcf68fda3c77a048a4f9073704aae"},
     {file = "multidict-6.0.2.tar.gz", hash = "sha256:5ff3bd75f38e4c43f1f470f2df7a4d430b821c4ce22be384e1459cb57d6bb013"},
 ]
+pypika-tortoise = [
+    {file = "pypika-tortoise-0.1.6.tar.gz", hash = "sha256:d802868f479a708e3263724c7b5719a26ad79399b2a70cea065f4a4cadbebf36"},
+    {file = "pypika_tortoise-0.1.6-py3-none-any.whl", hash = "sha256:2d68bbb7e377673743cff42aa1059f3a80228d411fbcae591e4465e173109fd8"},
+]
+pytz = [
+    {file = "pytz-2022.5-py2.py3-none-any.whl", hash = "sha256:335ab46900b1465e714b4fda4963d87363264eb662aab5e65da039c25f1f5b22"},
+    {file = "pytz-2022.5.tar.gz", hash = "sha256:c4d88f472f54d615e9cd582a5004d1e5f624854a6a27a6211591c251f22a6914"},
+]
 sanic = [
     {file = "sanic-22.9.0-py3-none-any.whl", hash = "sha256:01932dc4cbcd312caf509cb9ffcee8bea4f22b497a5b0c2d4dd5794c4408737a"},
     {file = "sanic-22.9.0.tar.gz", hash = "sha256:ac29863e64377399ca5a99408d521409ba8a80f81013c0e2878fae88de5e9aa8"},
@@ -208,6 +331,14 @@ sanic = [
 sanic-routing = [
     {file = "sanic-routing-22.8.0.tar.gz", hash = "sha256:305729b4e0bf01f074044a2a315ff401fa7eeffb009eec1d2c81d35e1038ddfc"},
     {file = "sanic_routing-22.8.0-py3-none-any.whl", hash = "sha256:9a928ed9e19a36bc019223be90a5da0ab88cdd76b101e032510b6a7073c017e9"},
+]
+tortoise-orm = [
+    {file = "tortoise-orm-0.19.2.tar.gz", hash = "sha256:bff4d79abfca7fb805972bb2438e8e0cd2e6590bc2cfd7593a803518a027bbf0"},
+    {file = "tortoise_orm-0.19.2-py3-none-any.whl", hash = "sha256:a99b8c9f42d5cd49493c70471b5c9a5df8ecf49cc624f2f41b9dc75bba993ac5"},
+]
+typing-extensions = [
+    {file = "typing_extensions-4.4.0-py3-none-any.whl", hash = "sha256:16fa4864408f655d35ec496218b85f79b3437c829e93320c7c9215ccfd92489e"},
+    {file = "typing_extensions-4.4.0.tar.gz", hash = "sha256:1511434bb92bf8dd198c12b1cc812e800d4181cfcb867674e0f8279cc93087aa"},
 ]
 ujson = [
     {file = "ujson-5.5.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:ff4928dc1e9704b567171c16787238201fdbf023665573c12c02146fe1e02eec"},
