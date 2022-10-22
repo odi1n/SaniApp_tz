@@ -1,0 +1,43 @@
+version: '3.3'
+
+services:
+    web:
+        container_name: sanic_api
+        restart: always
+        build:
+            context: ./
+            dockerfile: _docker/Dockerfile
+        command: bash -c "cd sanic_app && python main.py --dev"
+        volumes:
+            - ./:/home/sanic_tz
+        ports:
+            - 8000:8000
+        env_file:
+            - .env
+        environment:
+            - POSTGRES_HOST=db
+        depends_on:
+            - db
+
+    db:
+        container_name: sanic_db
+        image: postgres:13.3
+        restart: always
+        hostname: postgres
+        env_file:
+            - .env
+        environment:
+            POSTGRES_DB: '${POSTGRES_DB}'
+            POSTGRES_USER: '${POSTGRES_USER}'
+            POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
+            POSTGRES_HOST: '${POSTGRES_HOST}'
+            POSTGRES_POST: '${POSTGRES_POST}'
+            CONFIGS: "listen_addresses:'*',max_replication_slots:5"
+        ports:
+            - 5432:5432
+        volumes:
+            - ./data/postgres/:/var/lib/postgresql/data
+        healthcheck:
+            interval: 5s
+            timeout: 5s
+            retries: 5
