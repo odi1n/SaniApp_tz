@@ -6,7 +6,7 @@ from sanic_jwt import BaseEndpoint, exceptions
 # https://github.com/ahopkins/sanic-jwt/issues/111
 # https://sanic-jwt.readthedocs.io/en/latest/pages/endpoints.html
 from sanic_app.models import User
-from sanic_app.params import UserRegistrationParams
+from sanic_app.serializers import UserRegistrationParams, Status, StatusLink
 
 
 class Register(BaseEndpoint):
@@ -27,8 +27,9 @@ class Register(BaseEndpoint):
         # access_token, output = await self.responses.get_access_token_output(
         #     request, user.to_dict(), self.config, self.instance)
         # response = self.responses.get_token_response(request, access_token, output, config=self.config)
-        return json({"status": True,
-                     "link": f"http://localhost:8000/auth/confirm/{user.confirmation}"})
+
+        return json(StatusLink(status=True,
+                               link=f"http://localhost:8000/auth/confirm/{user.confirmation}").dict())
 
 
 class Confirm(BaseEndpoint):
@@ -47,4 +48,4 @@ class Confirm(BaseEndpoint):
         else:
             user.is_active = True
             await user.save()
-        return json({"status":True})
+        return json(Status(status=True).dict())

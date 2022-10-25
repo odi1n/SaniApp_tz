@@ -2,7 +2,7 @@ from sanic_ext import validate
 from sanic_jwt import exceptions
 
 from sanic_app.models import User
-from sanic_app.params import UserAuthParams
+from sanic_app.serializers import UserAuthParams
 
 
 @validate(json=UserAuthParams, body_argument="user_params")
