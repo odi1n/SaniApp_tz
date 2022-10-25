@@ -1,5 +1,5 @@
 from sanic import Blueprint
 
-from .user import user
+from .product import product
 
-api = Blueprint.group(user, url_prefix="/api")
+api = Blueprint.group(product, url_prefix="/api")
