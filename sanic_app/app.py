@@ -9,7 +9,7 @@ from tortoise.contrib.sanic import register_tortoise
 from sanic_app.api import api
 from sanic_app.config import Config, TORTOISE_ORM
 # Sanic
-from sanic_app.until.custom_auth import authenticate
+from sanic_app.until import authenticate, retrieve_user
 from sanic_app.until.registation import Register, Confirm
 
 app = Sanic("my-hello-world-app")
@@ -23,7 +23,9 @@ my_views = (
     ('/register', Register),
     ('/confirm/<conf_key>', Confirm),
 )
-Initialize(app, authenticate=authenticate,
+Initialize(app,
+           authenticate=authenticate,
+           retrieve_user=retrieve_user,
            class_views=my_views)  # jwt
 
 # swagger
