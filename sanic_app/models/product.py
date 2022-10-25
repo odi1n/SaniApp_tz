@@ -1,4 +1,5 @@
 from tortoise import Model, fields
+from tortoise.contrib.pydantic import pydantic_model_creator, pydantic_queryset_creator
 
 
 class Product(Model):
@@ -12,3 +13,7 @@ class Product(Model):
 
     def __str__(self):
         return f"Product - {self.title}"
+
+
+ProductPydanticOut = pydantic_queryset_creator(Product, name="ProductOut")
+ProductPydanticIn = pydantic_model_creator(Product, name="ProductIn", exclude_readonly=True)

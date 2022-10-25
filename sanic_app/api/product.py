@@ -1,8 +1,11 @@
-from sanic import Blueprint, text
+from sanic import Blueprint
+from sanic.response import text, json, HTTPResponse
 from sanic_ext.extensions.openapi import openapi
 from sanic_jwt import protected
 
-product = Blueprint("product", url_prefix="/product",  strict_slashes=True)
+from sanic_app.models import Product, ProductPydanticOut
+
+product = Blueprint("product", url_prefix="/product", strict_slashes=True)
 
 
 @openapi.summary("Get  products")
@@ -11,4 +14,5 @@ product = Blueprint("product", url_prefix="/product",  strict_slashes=True)
 @product.get('/list', strict_slashes=False)
 @protected()
 async def get_products(request):
-    return text('OK')
+    products = await ProductPydanticOut.from_queryset(Product.all())
+    return HTTPResponse(body=products.json())
