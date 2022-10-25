@@ -11,4 +11,6 @@ async def authenticate(request, user_params: UserAuthParams, *args, **kwargs):
                              hashed_password=user_params.password).first()
     if user is None:
         raise exceptions.AuthenticationFailed("User not found.")
+    if user.is_active is False:
+        raise exceptions.AuthenticationFailed("User not confirm account.")
     return user.to_dict()
