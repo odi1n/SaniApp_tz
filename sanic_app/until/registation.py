@@ -1,4 +1,4 @@
-from sanic.response import json, text
+from sanic.response import json
 from sanic_ext import validate
 from sanic_ext.extensions.openapi import openapi
 from sanic_jwt import BaseEndpoint, exceptions
@@ -22,12 +22,7 @@ class Register(BaseEndpoint):
             raise exceptions.SanicUnauthorized(message="There is already such a user")
 
         user = await User.create(username=user_params.username,
-                                 hashed_password=user_params.password1)
-
-        # access_token, output = await self.responses.get_access_token_output(
-        #     request, user.to_dict(), self.config, self.instance)
-        # response = self.responses.get_token_response(request, access_token, output, config=self.config)
-
+                                 password=user_params.password1)
         return json(StatusLink(status=True,
                                link=f"http://localhost:8000/auth/confirm/{user.confirmation}").dict())
 
@@ -45,7 +40,7 @@ class Confirm(BaseEndpoint):
         user = users[0]
         if user.is_active:
             raise exceptions.AuthenticateNotImplemented("Error confirmation key")
-        else:
-            user.is_active = True
-            await user.save()
+
+        user.is_active = True
+        await user.save()
         return json(Status(status=True).dict())
