@@ -10,7 +10,7 @@ from sanic_app.api import api
 from sanic_app.config import Config, TORTOISE_ORM
 # Sanic
 from sanic_app.until.custom_auth import authenticate
-from sanic_app.until.registation import Register
+from sanic_app.until.registation import Register, Confirm
 
 app = Sanic("my-hello-world-app")
 # config
@@ -19,9 +19,9 @@ app.update_config(Config)
 # router
 app.blueprint(api)
 
-
 my_views = (
     ('/register', Register),
+    ('/confirm/<conf_key>', Confirm),
 )
 Initialize(app, authenticate=authenticate,
            class_views=my_views)  # jwt
