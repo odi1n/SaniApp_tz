@@ -11,6 +11,7 @@ tortoise-orm = {extras = ["asyncpg"], version = "^0.19.2"}
 sanic-jwt = "^1.8.0"
 python-dotenv = "^0.21.0"
 aerich = "^0.7.1"
+pydantic = {extras = ["email", "dotenv"], version = "^1.10.2"}
 
 [tool.poetry.dev-dependencies]
 
