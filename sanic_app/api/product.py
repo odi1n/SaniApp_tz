@@ -7,7 +7,7 @@ from sanic_jwt import protected, inject_user
 from tortoise import transactions
 from tortoise.expressions import F
 
-from sanic_app.models import Product, ProductPydanticOut, User, Score, Transaction, TransactionPydanticOut
+from sanic_app.models import Product, ProductPydanticOut, User, Bill, Transaction, TransactionPydanticOut
 from sanic_app.serializers import TransactionParams
 
 product = Blueprint("product", url_prefix="/product", strict_slashes=True)
@@ -33,8 +33,8 @@ async def get_products(request):
 @inject_user()
 @validate(json=TransactionParams, body_argument="transaction_params")
 async def buy_products(request, user: User, transaction_params: TransactionParams):
-    score = await Score.filter(uid=transaction_params.score_id,
-                               user__id=user.get('id')).first()
+    score = await Bill.filter(uid=transaction_params.bill_id,
+                              user__id=user.get('id')).first()
     if score is None:
         raise exceptions.NotFound("Incorrect score")
     if score.balance < transaction_params.amount:

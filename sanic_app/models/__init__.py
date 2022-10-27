@@ -6,7 +6,7 @@ from .product import (
     Product,
     ProductPydanticIn, ProductPydanticOut
 )
-from .score import Score
+from .bill import Bill
 from .transaction import (
     Transaction,
     TransactionPydanticOut, TransactionQueryCreate
