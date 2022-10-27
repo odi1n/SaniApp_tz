@@ -19,7 +19,7 @@ async def authenticate(request, user_params: UserPydanticIn, *args, **kwargs):
 async def retrieve_user(request, payload, *args, **kwargs):
     if payload:
         users = await User.filter(id=payload.get("user_id"))
-        ss = await UserPydanticOut.from_tortoise_orm(users[0])
-        ss.confirmation = str(ss.confirmation)
-        return ss.dict()
+        user_pydantic = await UserPydanticOut.from_tortoise_orm(users[0])
+        user_pydantic.confirmation = str(user_pydantic.confirmation)
+        return user_pydantic.dict()
     return None
