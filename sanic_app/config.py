@@ -19,10 +19,6 @@ class Config:
     POSTGRES_PORT: str = os.getenv('POSTGRES_PORT')
     DB_URL: str = f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
-    # Doc
-    OAS_UI_DEFAULT: str = "swagger"
-    OAS_UI_REDOC: bool = False
-
 
 APP_MODELS: dict = [
     'sanic_app.models',
