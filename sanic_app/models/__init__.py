@@ -6,7 +6,10 @@ from .product import (
     Product,
     ProductPydanticIn, ProductPydanticOut
 )
-from .bill import Bill
+from .bill import (
+    Bill,
+    BillQueryCreate,
+)
 from .transaction import (
     Transaction,
     TransactionPydanticOut, TransactionQueryCreate

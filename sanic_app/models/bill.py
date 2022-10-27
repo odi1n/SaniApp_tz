@@ -1,5 +1,5 @@
 from tortoise import Model, fields
-
+from tortoise.contrib.pydantic import pydantic_queryset_creator
 
 
 class Bill(Model):
@@ -9,3 +9,5 @@ class Bill(Model):
 
     class Meta:
         table: str = "bill"
+
+BillQueryCreate = pydantic_queryset_creator(Bill, name="BillQueryCreate")
