@@ -9,5 +9,5 @@ from .product import (
 from .score import Score
 from .transaction import (
     Transaction,
-    TransactionPydanticOut
+    TransactionPydanticOut, TransactionQueryCreate
 )

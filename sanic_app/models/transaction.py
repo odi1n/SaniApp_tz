@@ -1,5 +1,5 @@
 from tortoise import Model, fields
-from tortoise.contrib.pydantic import pydantic_model_creator
+from tortoise.contrib.pydantic import pydantic_model_creator, pydantic_queryset_creator
 
 
 class Transaction(Model):
@@ -12,3 +12,4 @@ class Transaction(Model):
 
 
 TransactionPydanticOut = pydantic_model_creator(Transaction, name="TransactionPydanticOut")
+TransactionQueryCreate = pydantic_queryset_creator(Transaction, name="TransactionQueryCreate")
