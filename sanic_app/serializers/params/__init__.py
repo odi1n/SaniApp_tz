@@ -1,1 +1,1 @@
-from .user_params import UserAuthParams, UserRegistrationParams
+from .user_params import UserRegistrationParams
