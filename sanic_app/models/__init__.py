@@ -7,4 +7,7 @@ from .product import (
     ProductPydanticIn, ProductPydanticOut
 )
 from .score import Score
-from .transaction import Transaction
+from .transaction import (
+    Transaction,
+    TransactionPydanticOut
+)
