@@ -1,1 +1,2 @@
 from .user_params import UserRegistrationParams
+from .transaction_params import TransactionParams
