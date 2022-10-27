@@ -1,8 +1,8 @@
 from sanic import Blueprint, HTTPResponse
 from sanic_ext.extensions.openapi import openapi
-from sanic_jwt import protected
+from sanic_jwt import protected, inject_user
 
-from sanic_app.models import TransactionQueryCreate, Transaction
+from sanic_app.models import TransactionQueryCreate, Transaction, User
 
 transaction = Blueprint("transaction", url_prefix="/transaction", strict_slashes=True)
 
@@ -12,6 +12,7 @@ transaction = Blueprint("transaction", url_prefix="/transaction", strict_slashes
 @openapi.description("Get all transactions")
 @openapi.parameter("Authorization", str, "Bearer Token")
 @protected()
-async def get_transactions(request):
-    transaction = await TransactionQueryCreate.from_queryset(Transaction.all())
+@inject_user()
+async def get_transactions(request, user: User):
+    transaction = await TransactionQueryCreate.from_queryset(Transaction.filter(score__user_id=user.get('id')).all())
     return HTTPResponse(body=transaction.json())
