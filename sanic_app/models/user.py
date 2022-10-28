@@ -9,6 +9,7 @@ class User(Model):
     username = fields.CharField(max_length=50, unique=True)
     password = fields.CharField(max_length=255)
     is_active = fields.BooleanField(default=False)
+    is_superuser = fields.BooleanField(default=False)
     confirmation = fields.UUIDField(default=uuid4)
 
     class Meta:
@@ -18,7 +19,11 @@ class User(Model):
         return f"User {self.id}: {self.username}"
 
     def to_dict(self):
-        return {"user_id": self.id, "username": self.username}
+        scopes = ['user']
+        if self.is_superuser:
+            scopes.append('admin')
+
+        return {"user_id": self.id, "username": self.username, "scopes": scopes}
 
 
 UserPydanticOut = pydantic_model_creator(User, name="UserOut")
