@@ -15,5 +15,5 @@ bill = Blueprint("bill", url_prefix="/bill", strict_slashes=True)
 @protected()
 @inject_user()
 async def get_bills(request, user: User):
-    transaction = await BillQueryCreate.from_queryset(Bill.filter(user__id=user.get('id')).all())
-    return HTTPResponse(body=transaction.json())
+    bill = await BillQueryCreate.from_queryset(Bill.filter(user__id=user.get('id')).all())
+    return HTTPResponse(body=bill.json(), content_type="application/json")
