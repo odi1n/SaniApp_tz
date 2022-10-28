@@ -12,6 +12,8 @@ sanic-jwt = "^1.8.0"
 python-dotenv = "^0.21.0"
 aerich = "^0.7.1"
 pydantic = {extras = ["email", "dotenv"], version = "^1.10.2"}
+pycryptodome = "^3.15.0"
+pycryptodome-test-vectors = "^1.0.10"
 
 [tool.poetry.dev-dependencies]
 
