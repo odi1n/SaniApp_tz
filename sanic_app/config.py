@@ -19,6 +19,8 @@ class Config:
     POSTGRES_PORT: str = os.getenv('POSTGRES_PORT')
     DB_URL: str = f"postgres://{POSTGRES_USER}:{POSTGRES_PASSWORD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}"
 
+    private_key: str = "hGwXPoslOZT9yt72k1IJLGDoh"
+
 
 APP_MODELS: dict = [
     'sanic_app.models',
