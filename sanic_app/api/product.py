@@ -1,6 +1,5 @@
 from sanic import Blueprint, exceptions
-from sanic import Blueprint, exceptions
-from sanic.response import HTTPResponse
+from sanic.response import HTTPResponse, json
 from sanic_ext import validate
 from sanic_ext.extensions.openapi import openapi
 from sanic_jwt import protected, inject_user
@@ -33,22 +32,22 @@ async def get_products(request):
 @inject_user()
 @validate(json=TransactionParams, body_argument="transaction_params")
 async def buy_products(request, user: User, transaction_params: TransactionParams):
-    score = await Bill.filter(uid=transaction_params.bill_id,
-                              user__id=user.get('id')).first()
-    if score is None:
+    bill = await Bill.filter(id=transaction_params.bill_id,
+                             user__id=user.get('id')).first()
+    if bill is None:
         raise exceptions.NotFound("Incorrect score")
-    if score.balance < transaction_params.amount:
-        raise exceptions.NotFound("Not balance")
 
     product = await Product.filter(id=transaction_params.product_id).first()
     if product is None:
         raise exceptions.NotFound("Incorrect product")
 
+    if bill.balance < product.price:
+        raise exceptions.NotFound("Not balance")
+
     async with transactions.in_transaction():
-        score.balance = F("balance") - transaction_params.amount
-        await score.save(update_fields=['balance'])
-        transaction = await Transaction.create(score=score,
-                                               amount=transaction_params.amount,
+        bill.balance = F("balance") - product.price
+        await bill.save(update_fields=['balance'])
+        transaction = await Transaction.create(bill=bill,
                                                product=product)
     transaction = await TransactionPydanticOut.from_tortoise_orm(transaction)
-    return HTTPResponse(body=transaction.json())
+    return json(transaction.dict())
