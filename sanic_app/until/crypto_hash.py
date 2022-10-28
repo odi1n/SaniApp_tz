@@ -1,4 +1,4 @@
-from Crypto.Hash import SHA256, SHA1
+from Crypto.Hash import SHA1
 
 
 def decrypto(private_key, transaction_id, user_id, bill_id, amount):
