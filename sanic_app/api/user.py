@@ -4,7 +4,7 @@ from sanic_ext.extensions.openapi import openapi
 from sanic_jwt import protected, scoped
 from tortoise.contrib.pydantic import pydantic_queryset_creator
 
-from sanic_app.models import User, UserPydanticOut
+from sanic_app.models import User, UserModelCreate
 from sanic_app.serializers.params.user_params import UserUpdate
 
 user = Blueprint("user", url_prefix="/user", strict_slashes=True)
@@ -40,5 +40,5 @@ async def update_user(request, user_id: int, user_params: UserUpdate):
     user.is_active = user_params.is_active
     await user.save(update_fields=['is_active'])
 
-    user_ser = await UserPydanticOut.from_tortoise_orm(user)
+    user_ser = await UserModelCreate.from_tortoise_orm(user)
     return HTTPResponse(user_ser.json(), content_type="application/json")

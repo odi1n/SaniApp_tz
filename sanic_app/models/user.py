@@ -33,6 +33,6 @@ class User(Model):
         return {"user_id": self.id, "username": self.username, "scopes": self.get_scopes}
 
 
-UserPydanticOut = pydantic_model_creator(User, name="UserPydanticOut",
+UserModelCreate = pydantic_model_creator(User, name="UserModelCreate",
                                          exclude=('password', 'is_superuser', 'bills'))
-UserPydanticIn = pydantic_model_creator(User, name="UserPydanticIn", exclude_readonly=True, )
+UserModelCreateExl = pydantic_model_creator(User, name="UserModelCreateExl", exclude_readonly=True, )

@@ -10,5 +10,5 @@ class Transaction(Model):
         table: str = "transaction"
 
 
-TransactionPydanticOut = pydantic_model_creator(Transaction, name="TransactionPydanticOut")
+TransactionModelCreate = pydantic_model_creator(Transaction, name="TransactionModelCreate")
 TransactionQueryCreate = pydantic_queryset_creator(Transaction, name="TransactionQueryCreate")

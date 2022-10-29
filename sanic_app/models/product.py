@@ -16,5 +16,5 @@ class Product(Model):
 
 
 ProductModelCreate = pydantic_model_creator(Product, name="ProductModelCreate")
-ProductPydanticOut = pydantic_queryset_creator(Product, name="ProductPydanticOut")
-ProductPydanticIn = pydantic_model_creator(Product, name="ProductPydanticIn", exclude_readonly=True)
+ProductQueryCreate = pydantic_queryset_creator(Product, name="ProductQueryCreate")
+ProductModelCreateExl = pydantic_model_creator(Product, name="ProductModelCreateExl", exclude_readonly=True)

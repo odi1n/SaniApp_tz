@@ -3,11 +3,11 @@ from sanic_ext import validate
 from sanic_jwt import exceptions
 from tortoise.contrib.pydantic import pydantic_model_creator
 
-from sanic_app.models import User, UserPydanticIn, UserPydanticOut
+from sanic_app.models import User, UserModelCreateExl, UserModelCreate
 
 
-@validate(json=UserPydanticIn, body_argument="user_params")
-async def authenticate(request, user_params: UserPydanticIn, *args, **kwargs):
+@validate(json=UserModelCreateExl, body_argument="user_params")
+async def authenticate(request, user_params: UserModelCreateExl, *args, **kwargs):
     user = await User.filter(**user_params.dict(exclude_unset=True)).first()
     if user is None:
         raise exceptions.AuthenticationFailed("User not found.")
@@ -19,7 +19,7 @@ async def authenticate(request, user_params: UserPydanticIn, *args, **kwargs):
 async def retrieve_user(request, payload, *args, **kwargs):
     if payload:
         users = await User.filter(id=payload.get("user_id"))
-        user_pydantic = await UserPydanticOut.from_tortoise_orm(users[0])
+        user_pydantic = await UserModelCreate.from_tortoise_orm(users[0])
         user_pydantic.confirmation = str(user_pydantic.confirmation)
         return user_pydantic
     return None
