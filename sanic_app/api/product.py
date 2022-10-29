@@ -21,7 +21,7 @@ product = Blueprint("product", url_prefix="/product", strict_slashes=True)
 @protected()
 async def get_product(request):
     products = await ProductQueryCreate.from_queryset(Product.all())
-    return HTTPResponse(body=products.json())
+    return HTTPResponse(body=products.json(), content_type="application/json")
 
 
 @product.post('/', strict_slashes=False)
