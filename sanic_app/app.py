@@ -9,7 +9,7 @@ from tortoise.contrib.sanic import register_tortoise
 from sanic_app.api import api
 from sanic_app.config import Config, TORTOISE_ORM
 # Sanic
-from sanic_app.until import authenticate, retrieve_user
+from sanic_app.until import authenticate, retrieve_user, my_scope_extender
 from sanic_app.until.registation import Register, Confirm
 
 app = Sanic("my-hello-world-app")
@@ -25,6 +25,7 @@ my_views = (
 )
 Initialize(app,
            authenticate=authenticate,
+           add_scopes_to_payload=my_scope_extender,
            retrieve_user=retrieve_user,
            class_views=my_views)  # jwt
 
