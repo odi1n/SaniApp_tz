@@ -21,6 +21,8 @@ async def retrieve_user(request, payload, *args, **kwargs):
         users = await User.filter(id=payload.get("user_id"))
         user_pydantic = await UserModelCreate.from_tortoise_orm(users[0])
         user_pydantic.confirmation = str(user_pydantic.confirmation)
+        if "me" in request.server_path:
+            return user_pydantic.dict()
         return user_pydantic
     return None
 
