@@ -13,7 +13,7 @@ async def authenticate(request, user_params: UserPydanticIn, *args, **kwargs):
         raise exceptions.AuthenticationFailed("User not found.")
     if user.is_active is False:
         raise exceptions.AuthenticationFailed("User not confirm account.")
-    return user.to_dict()
+    return user
 
 
 async def retrieve_user(request, payload, *args, **kwargs):
@@ -23,3 +23,6 @@ async def retrieve_user(request, payload, *args, **kwargs):
         user_pydantic.confirmation = str(user_pydantic.confirmation)
         return user_pydantic.dict()
     return None
+
+async def my_scope_extender(user, *args, **kwargs):
+    return user.get_scopes
