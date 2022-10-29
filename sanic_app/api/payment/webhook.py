@@ -25,7 +25,7 @@ async def set_webhook(request, webhook_params: WebhookParams):
                        bill_id=webhook_params.bill_id,
                        amount=0)
     if webhook_params.signature != decrypt:
-        exceptions.NotFound("Error signature")
+        raise exceptions.NotFound("Error signature")
 
     transaction = await Transaction.filter(id=webhook_params.transaction_id).first()
     if transaction is None:
