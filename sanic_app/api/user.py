@@ -14,11 +14,11 @@ user = Blueprint("user", url_prefix="/user", strict_slashes=True)
 @openapi.summary("Get user_apis")
 @openapi.description("Get all user_apis")
 @openapi.parameter("Authorization", str, "Bearer Token")
+@openapi.response(200, pydantic_queryset_creator(User), description="Product params")
 @protected()
 @scoped('admin')
 async def get_users(request):
     user_query_create = pydantic_queryset_creator(User)
-
     user_ser = await user_query_create.from_queryset(User.all())
     return HTTPResponse(user_ser.json(), content_type="application/json")
 
@@ -27,7 +27,7 @@ async def get_users(request):
 @openapi.summary("Get user_apis")
 @openapi.description("Get all user_apis")
 @openapi.parameter("Authorization", str, "Bearer Token")
-@openapi.response(200, {}, description="Product params")
+@openapi.response(200, UserModelCreate, description="Product params")
 @openapi.definition(body={'application/json': UserUpdate.schema()})
 @protected()
 @scoped('admin')

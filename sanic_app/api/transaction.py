@@ -11,6 +11,7 @@ transaction = Blueprint("transaction", url_prefix="/transaction", strict_slashes
 @openapi.summary("Get transactions")
 @openapi.description("Get all transactions")
 @openapi.parameter("Authorization", str, "Bearer Token")
+@openapi.response(200, TransactionQueryCreate, description="Model Transaction")
 @protected()
 @inject_user()
 async def get_transaction(request, user: User):

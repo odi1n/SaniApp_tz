@@ -15,7 +15,7 @@ webhook = Blueprint("webhook", url_prefix="/webhook", strict_slashes=True)
 @webhook.post('/', strict_slashes=False)
 @openapi.summary("Webhook")
 @openapi.description("Webhook balance")
-@openapi.response(200, {"json": Status}, description="Model Webhook")
+@openapi.response(200, {"json": Status.schema()}, description="Model Webhook")
 @openapi.definition(body={'application/json': WebhookParams})
 @validate(json=WebhookParams, body_argument="webhook_params")
 async def set_webhook(request, webhook_params: WebhookParams):

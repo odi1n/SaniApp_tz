@@ -70,6 +70,7 @@ async def delete_product(request, product_id: int):
 @openapi.description("Buy products")
 @openapi.parameter("Authorization", str, "Bearer Token")
 @openapi.definition(body={'application/json': TransactionParams.schema()})
+@openapi.response(200, TransactionModelCreate, description="Buy model")
 @protected()
 @inject_user()
 @validate(json=TransactionParams, body_argument="transaction_params")
