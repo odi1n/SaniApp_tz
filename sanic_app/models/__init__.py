@@ -4,7 +4,7 @@ from .user import (
 )
 from .product import (
     Product,
-    ProductPydanticIn, ProductPydanticOut
+    ProductPydanticIn, ProductPydanticOut, ProductModelCreate
 )
 from .bill import (
     Bill,

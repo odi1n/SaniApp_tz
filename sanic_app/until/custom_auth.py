@@ -21,7 +21,7 @@ async def retrieve_user(request, payload, *args, **kwargs):
         users = await User.filter(id=payload.get("user_id"))
         user_pydantic = await UserPydanticOut.from_tortoise_orm(users[0])
         user_pydantic.confirmation = str(user_pydantic.confirmation)
-        return user_pydantic.dict()
+        return user_pydantic
     return None
 
 async def my_scope_extender(user, *args, **kwargs):

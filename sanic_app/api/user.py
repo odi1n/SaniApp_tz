@@ -1,8 +1,8 @@
-from sanic import Blueprint, json, HTTPResponse
+from sanic import Blueprint, HTTPResponse, exceptions
 from sanic_ext import validate
 from sanic_ext.extensions.openapi import openapi
-from sanic_jwt import protected, inject_user, scoped
-from tortoise.contrib.pydantic import pydantic_model_creator, pydantic_queryset_creator
+from sanic_jwt import protected, scoped
+from tortoise.contrib.pydantic import pydantic_queryset_creator
 
 from sanic_app.models import User, UserPydanticOut
 from sanic_app.serializers.params.user_params import UserUpdate
@@ -16,10 +16,11 @@ user = Blueprint("user", url_prefix="/user", strict_slashes=True)
 @openapi.parameter("Authorization", str, "Bearer Token")
 @protected()
 @scoped('admin')
-async def get_list(request):
-    test = pydantic_queryset_creator(User)
-    user_pydantic = await test.from_queryset(User.all())
-    return HTTPResponse(user_pydantic.json(), content_type="application/json")
+async def get_users(request):
+    user_query_create = pydantic_queryset_creator(User)
+
+    user_ser = await user_query_create.from_queryset(User.all())
+    return HTTPResponse(user_ser.json(), content_type="application/json")
 
 
 @user.put('/<user_id>', strict_slashes=False)
@@ -34,8 +35,10 @@ async def get_list(request):
 async def update_user(request, user_id: int, user_params: UserUpdate):
     user = await User.filter(id=user_id).first()
     if not user:
-        pass
+        raise exceptions.NotFound("Incorrect user id")
+
     user.is_active = user_params.is_active
     await user.save(update_fields=['is_active'])
-    test = await UserPydanticOut.from_tortoise_orm(user)
-    return HTTPResponse(test.json(), content_type="application/json")
+
+    user_ser = await UserPydanticOut.from_tortoise_orm(user)
+    return HTTPResponse(user_ser.json(), content_type="application/json")

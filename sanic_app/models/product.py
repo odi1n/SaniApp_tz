@@ -15,5 +15,6 @@ class Product(Model):
         return f"Product - {self.title}"
 
 
-ProductPydanticOut = pydantic_model_creator(Product, name="ProductPydanticOut")
+ProductModelCreate = pydantic_model_creator(Product, name="ProductModelCreate")
+ProductPydanticOut = pydantic_queryset_creator(Product, name="ProductPydanticOut")
 ProductPydanticIn = pydantic_model_creator(Product, name="ProductPydanticIn", exclude_readonly=True)

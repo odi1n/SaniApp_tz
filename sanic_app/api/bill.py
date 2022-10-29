@@ -12,8 +12,9 @@ bill = Blueprint("bill", url_prefix="/bill", strict_slashes=True)
 @openapi.summary("Get bills")
 @openapi.description("Get all bills")
 @openapi.parameter("Authorization", str, "Bearer Token")
+@openapi.response(200, BillQueryCreate, description="Product params")
 @protected()
 @inject_user()
-async def get_bills(request, user: User):
-    bill = await BillQueryCreate.from_queryset(Bill.filter(user__id=user.get('id')).all())
+async def get_bill(request, user: User):
+    bill = await BillQueryCreate.from_queryset(Bill.filter(user__id=user.id).all())
     return HTTPResponse(body=bill.json(), content_type="application/json")

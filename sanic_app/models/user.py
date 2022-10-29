@@ -34,5 +34,5 @@ class User(Model):
 
 
 UserPydanticOut = pydantic_model_creator(User, name="UserPydanticOut",
-                                         exclude=('password', 'confirmation', 'is_superuser', 'bills'))
+                                         exclude=('password', 'is_superuser', 'bills'))
 UserPydanticIn = pydantic_model_creator(User, name="UserPydanticIn", exclude_readonly=True, )
