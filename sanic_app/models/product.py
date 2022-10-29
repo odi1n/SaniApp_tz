@@ -6,7 +6,7 @@ class Product(Model):
     id = fields.IntField(pk=True)
     title = fields.CharField(max_length=150)
     description = fields.TextField()
-    price = fields.DecimalField(max_digits=10, decimal_places=2, default=0)
+    price: int = fields.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     class Meta:
         table: str = "product"
@@ -15,5 +15,5 @@ class Product(Model):
         return f"Product - {self.title}"
 
 
-ProductPydanticOut = pydantic_queryset_creator(Product, name="ProductOut")
-ProductPydanticIn = pydantic_model_creator(Product, name="ProductIn", exclude_readonly=True)
+ProductPydanticOut = pydantic_model_creator(Product, name="ProductPydanticOut")
+ProductPydanticIn = pydantic_model_creator(Product, name="ProductPydanticIn", exclude_readonly=True)

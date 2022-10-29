@@ -2,11 +2,12 @@ from sanic import Blueprint, exceptions
 from sanic.response import HTTPResponse, json
 from sanic_ext import validate
 from sanic_ext.extensions.openapi import openapi
-from sanic_jwt import protected, inject_user
+from sanic_jwt import protected, inject_user, scoped
 from tortoise import transactions
 from tortoise.expressions import F
 
-from sanic_app.models import Product, ProductPydanticOut, User, Bill, Transaction, TransactionPydanticOut
+from sanic_app.models import Product, ProductPydanticOut, User, Bill, Transaction, TransactionPydanticOut, \
+    ProductPydanticIn
 from sanic_app.serializers import TransactionParams
 
 product = Blueprint("product", url_prefix="/product", strict_slashes=True)
@@ -24,6 +25,45 @@ async def get_products(request):
 
 
 @product.post('/', strict_slashes=False)
+@openapi.parameter("Authorization", str, "Bearer Token")
+@openapi.response(200, ProductPydanticOut, description="Product params")
+@openapi.definition(body={'application/json': ProductPydanticIn})
+@protected()
+@scoped('admin')
+@validate(json=ProductPydanticIn, body_argument="product_params")
+async def create_product(request, product_params: ProductPydanticIn):
+    product = await Product.create(**product_params.dict())
+    product_pydantic = await ProductPydanticOut.from_tortoise_orm(product)
+    return HTTPResponse(product_pydantic.json(), content_type="application/json")
+
+
+@product.put('/<product_id>', strict_slashes=False)
+@openapi.parameter("Authorization", str, "Bearer Token")
+@openapi.response(200, ProductPydanticOut, description="Product params")
+@openapi.definition(body={'application/json': ProductPydanticIn})
+@protected()
+@scoped('admin')
+@validate(json=ProductPydanticIn, body_argument="product_params")
+async def update_product(request, product_id: int, product_params: ProductPydanticIn):
+    product = await Product.filter(id=product_id).first()
+    if not product:
+        pass
+    product = await product.update_from_dict(product_params.dict())
+    product_pydantic = await ProductPydanticOut.from_tortoise_orm(product)
+    return HTTPResponse(product_pydantic.json(), content_type="application/json")
+
+
+@product.delete('/<product_id>', strict_slashes=False)
+@openapi.parameter("Authorization", str, "Bearer Token")
+@protected()
+@scoped('admin')
+async def delete_product(request, product_id: int):
+    product = await Product.filter(id=product_id).first()
+    await product.delete()
+    return json({"status": "ok"}, status=204)
+
+
+@product.post('buy/', strict_slashes=False)
 @openapi.summary("Buy products")
 @openapi.description("Buy products")
 @openapi.parameter("Authorization", str, "Bearer Token")
