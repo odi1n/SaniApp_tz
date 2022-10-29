@@ -7,7 +7,7 @@ services:
         build:
             context: ./
             dockerfile: _docker/Dockerfile
-        command: bash -c "cd sanic_app && python main.py --dev"
+        command: bash -c "aerich upgrade && python app.py --dev"
         volumes:
             - ./:/home/sanic_tz
         ports:

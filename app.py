@@ -1,9 +1,7 @@
 from textwrap import dedent
 
 from sanic import Sanic
-from sanic_ext import openapi, validate
-from sanic_jwt import initialize, Initialize
-from sanic_jwt.endpoints import AuthenticateEndpoint
+from sanic_jwt import Initialize
 from tortoise.contrib.sanic import register_tortoise
 
 from sanic_app.api import api
