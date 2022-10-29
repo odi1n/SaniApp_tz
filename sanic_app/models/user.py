@@ -3,6 +3,8 @@ from uuid import uuid4
 from tortoise import Model, fields
 from tortoise.contrib.pydantic import pydantic_model_creator
 
+from sanic_app.models.bill import Bill
+
 
 class User(Model):
     id = fields.IntField(pk=True)
@@ -11,6 +13,8 @@ class User(Model):
     is_active = fields.BooleanField(default=False)
     is_superuser = fields.BooleanField(default=False)
     confirmation = fields.UUIDField(default=uuid4)
+
+    bills: fields.ReverseRelation['Bill']
 
     class Meta:
         table: str = "user"
@@ -29,6 +33,6 @@ class User(Model):
         return {"user_id": self.id, "username": self.username, "scopes": self.get_scopes}
 
 
-UserPydanticOut = pydantic_model_creator(User, name="UserOut",
-                                         exclude=('password', 'confirmation', 'is_superuser'))
-UserPydanticIn = pydantic_model_creator(User, name="UserIn", exclude_readonly=True, )
+UserPydanticOut = pydantic_model_creator(User, name="UserPydanticOut",
+                                         exclude=('password', 'confirmation', 'is_superuser', 'bills'))
+UserPydanticIn = pydantic_model_creator(User, name="UserPydanticIn", exclude_readonly=True, )

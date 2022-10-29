@@ -2,7 +2,7 @@ from sanic import Blueprint, json, HTTPResponse
 from sanic_ext import validate
 from sanic_ext.extensions.openapi import openapi
 from sanic_jwt import protected, inject_user, scoped
-from tortoise.contrib.pydantic import pydantic_model_creator
+from tortoise.contrib.pydantic import pydantic_model_creator, pydantic_queryset_creator
 
 from sanic_app.models import User, UserPydanticOut
 from sanic_app.serializers.params.user_params import UserUpdate
@@ -17,7 +17,9 @@ user = Blueprint("user", url_prefix="/user", strict_slashes=True)
 @protected()
 @scoped('admin')
 async def get_list(request):
-    return json({"qwe": "czx"})
+    test = pydantic_queryset_creator(User)
+    user_pydantic = await test.from_queryset(User.all())
+    return HTTPResponse(user_pydantic.json(), content_type="application/json")
 
 
 @user.put('/<user_id>', strict_slashes=False)
